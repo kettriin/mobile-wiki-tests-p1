@@ -6,6 +6,7 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static io.appium.java_client.AppiumBy.accessibilityId;
@@ -19,6 +20,8 @@ public class SearchPage {
             $$(id("org.wikipedia.alpha:id/page_list_item_title"));
     private final SelenideElement articleDescription =
             $(id("org.wikipedia.alpha:id/pcs-edit-section-title-description"));
+    private final SelenideElement articleError = $(id("org.wikipedia.alpha:id/page_error"));
+
 
     @Step("Сделать поиск активным")
     public SearchPage searchInputActivate() {
@@ -45,5 +48,10 @@ public class SearchPage {
     @Step("Описание открытой статьи соответствует поисковому запросу")
     public void descriptionMatchesQuery(String queryDescription) {
         articleDescription.shouldHave(text(queryDescription));
+    }
+
+    @Step("При открытии статьи отображается ошибка")
+    public void errorWithArticle() {
+        articleError.shouldBe(visible);
     }
 }

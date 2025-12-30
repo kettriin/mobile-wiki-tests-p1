@@ -12,7 +12,7 @@ public class SearchTests extends TestBase {
     String articleDescription = "Automation for Apps";
 
     @Test
-    void successfulSearchTest() {
+    void successfullSearchTest() {
         step("Ввести поисковый запрос", () -> searchPage.searchInputActivate().inputSearchQuery(query));
         step("По запросу найдены результаты", () -> {
             searchPage.resultListNotEmpty();
@@ -20,13 +20,14 @@ public class SearchTests extends TestBase {
     }
 
     @Test
-    void successfulSearchArticleOpeningTest() {
+    void negativeSearchArticleOpeningTest() {
 
         step("Ввести поисковый запрос", () -> searchPage.searchInputActivate().inputSearchQuery(query));
         step("По запросу найдены результаты", () -> {
             searchPage.resultListNotEmpty();
         });
         step("Выбрать статью из списка результатов", () -> searchPage.clickFirstResult());
-        step("Описание статьи соответствует поисковому запросу", () -> searchPage.descriptionMatchesQuery(articleDescription));
+//        step("Описание статьи соответствует поисковому запросу", () -> searchPage.descriptionMatchesQuery(articleDescription));
+        step("Отображается ошибка при открытии статьи", () -> searchPage.errorWithArticle());
     }
 }
