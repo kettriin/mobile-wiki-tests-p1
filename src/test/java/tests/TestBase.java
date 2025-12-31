@@ -16,7 +16,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class TestBase {
 
     @BeforeAll
-    static void beforeAll() {
+    static void setupSelenideConfig() {
         Configuration.browser = BSDriver.class.getName();
         Configuration.browserSize = null;
         Configuration.timeout = 30000;
@@ -26,13 +26,13 @@ public class TestBase {
     }
 
     @BeforeEach
-    void beforeEach() {
+    void addListenerAndOpen() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
         open();
     }
 
     @AfterEach
-    void afterEach() {
+    void addAttachments() {
         String sessionId = Selenide.sessionId().toString();
         System.out.println("Session ID: " + sessionId);
 
